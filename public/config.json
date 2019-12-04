@@ -1,96 +1,74 @@
 {
-	"key": "8ab549ce-8785-439f-bac4-ca7f75736c0a",
-	"metaData": {
-		"icon": "images/icon.png",
-		"iconSmall": "images/icon_small.png"
-	},
-	"type": "RESTDECISION",
-	"lang": {
-		"en-US": {
-			"name": "Lead/Contact check",
-			"description": "Custom Split activity that makes a decision based on data from SalesCloud SF"
-		}
-	},
-	"workflowApiVersion": "1.1",
-	"configurationArguments": {
-		"applicationExtensionKey": "8ab549ce-8785-439f-bac4-ca7f75736c0a",
-		"save": {
-			"url": "https://lp-check-user.herokuapp.com/activity/save",
-			"verb": "POST",
-			"body": "",
-			"useJwt": true,
-			"customerKey": "lpcheckuserkey"
-		},
-		"publish": {
-			"url": "https://lp-check-user.herokuapp.com/activity/publish",
-			"verb": "POST",
-			"body": "",
-			"useJwt": true,
-			"customerKey": "lpcheckuserkey"
-		},
-		"validate": {
-			"url": "https://lp-check-user.herokuapp.com/activity/validate",
-			"verb": "POST",
-			"body": "",
-			"useJwt": true,
-			"customerKey": "lpcheckuserkey"
-		}
-	},
-	"wizardSteps": [
-		{"key": "eventdefinitionkey", "label": "Event Definition Key"},
-		{"key": "idselection", "label": "Email Address field selection"}
-	],
-	"outcomes": [
-		{
-			"arguments": {
-				"branchResult": "0"
-			},
-			"metaData": {
-				"label": "Not a Contact / Lead"
-			}
-		},
-		{
-			"arguments": {
-				"branchResult": "1"
-			},
-			"metaData": {
-				"label": "Is a Lead only"
-			}
-		},
-		{
-			"arguments": {
-				"branchResult": "2"
-			},
-			"metaData": {
-				"label": "Is a contact"
-			}
-		}
-	],
-	"userInterfaces": {
-		"runningModal": {
-			"url": "runningModal.html"
-		},
-		"runningHover": {
-			"url": "runningHover.html"
-		}
-	},
-	"arguments": {
-		"execute": {
-			"inArguments": [],
-			"outArguments": [],
-			"url": "https://lp-check-user.herokuapp.com/activity/execute",
-			"verb": "POST",
-			"body": "",
-			"header": "",
-			"format": "json",
-			"useJwt": true,
-			"customerKey": "lpcheckuserkey",
-			"timeout": 90000
-		}
-	},
-	"edit": {
-		"url": "https://lp-check-user.herokuapp.com/index.html",
-		"height": 200,
-		"width": 500
-	}
+    "workflowApiVersion": "1.1",
+    "metaData": {
+        "icon": "images/icon.png",
+        "iconSmall": "images/iconSmall.png",
+        "category": "message"
+    },
+    "type": "REST",
+    "lang": {
+        "en-US": {
+            "name": "Template",
+          "description": "A Template for a custom Journey Builder activity",
+          "step1Label": "Configure Activity"
+        }
+    },
+    "arguments": {
+        "execute": {
+           "inArguments":[
+        {
+                    "emailAddress": "{{Contact.Attribute.CustomActivity.EmailAddress}}"
+                }                 
+      ],
+          "outArguments": [],
+          "url": "https://journeycustomactivtest.herokuapp.com/journeybuilder/execute",
+           "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": true,
+            "timeout": 10000
+        }
+    },
+    "configurationArguments": {
+      "applicationExtensionKey": "5e27e99f-bbf7-4998-838c-d3dc027a4ab6",
+      "save": {
+        "url": "https://journeycustomactivtest.herokuapp.com/journeybuilder/save",
+          "verb": "POST",
+        "useJwt": true
+       },
+       "publish": {
+        "url": "https://journeycustomactivtest.herokuapp.com/journeybuilder/publish",
+           "verb": "POST",
+        "useJwt": true
+       },
+      "stop": {
+        "url": "https://journeycustomactivtest.herokuapp.com/journeybuilder/stop",
+           "verb": "POST",
+        "useJwt": true
+      },
+      "validate": {
+        "url": "https://journeycustomactivtest.herokuapp.com/journeybuilder/validate",
+        "verb": "POST",
+        "useJwt": true
+      }
+    },
+    "wizardSteps": [
+        { "label": "Configure Activity", "key": "step1" }
+    ],
+    "userInterfaces": {
+        "configModal": {
+            "height": 400,
+            "width": 1000,
+          "fullscreen": false
+        }
+    },
+    "schema": {
+        "arguments": {
+            "execute": {
+                "inArguments": [],
+                "outArguments": []
+            }
+        }
+    }
 }
